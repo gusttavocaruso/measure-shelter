@@ -12,8 +12,8 @@ public class IlhaService {
   @Autowired
   IlhaRepository ilhaRepository;
 
-  public void criarIlha(Ilha ilha) {
-    ilhaRepository.save(ilha);
+  public Ilha criarIlha(String nome, String status) {
+    return ilhaRepository.save(new Ilha(nome, status));
   }
 
 }
