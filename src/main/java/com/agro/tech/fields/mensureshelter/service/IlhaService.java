@@ -1,5 +1,7 @@
 package com.agro.tech.fields.mensureshelter.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,30 @@ public class IlhaService {
   @Autowired
   IlhaRepository ilhaRepository;
 
-  public Ilha criarIlha(String nome, String status) {
-    return ilhaRepository.save(new Ilha(nome, status));
+  // C
+  public Ilha criarIlha(Ilha ilha) {
+    return ilhaRepository.save(ilha);
+  }
+
+  // R
+  public List<Ilha> searchIlhas() {
+    return ilhaRepository.findAll();
+  }
+
+  // U
+  public Ilha updateIlha(String id, Ilha ilha) {
+    Ilha ilhaUpdate = ilhaRepository.findById(id).orElseThrow();
+
+    ilhaUpdate.setNome(ilha.getNome());
+    ilhaUpdate.setStatus(ilha.getStatus());
+
+    return ilhaRepository.save(ilhaUpdate);
+  }
+
+  // D
+  public String deleteIlha(String id) {
+    ilhaRepository.deleteById(id);
+    return "Ilha removida com sucesso";
   }
 
 }
