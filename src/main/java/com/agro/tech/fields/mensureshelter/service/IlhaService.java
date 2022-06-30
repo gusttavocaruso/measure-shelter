@@ -65,29 +65,25 @@ public class IlhaService {
     Medidas medidaUpdate = ilha.getMedidas().stream()
       .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
 
-    // Medidas medidaUpdate = searchMedidaById(medidas, idMedida);
+    medidaUpdate.setDescricao(medida.getDescricao());
+    medidaUpdate.setValor(medida.getValor());
+    medidaUpdate.setUnidadeDeMedida(medida.getUnidadeDeMedida());
 
-    // if (medidaUpdate == null) {
-    //   return medida;
-    // } else {
-      // medidaUpdate.setDescricao(medida.getDescricao());
-      // medidaUpdate.setValor(medida.getValor());
-      // medidaUpdate.setUnidadeDeMedida(medida.getUnidadeDeMedida());
-      // ilha.adicionarMedida(medidaUpdate);
-    // }
-
-    // ilhaRepository.save(ilha);
+    ilhaRepository.save(ilha);
     return medidaUpdate;
   }
 
-  // função para encontrar medida especificada no parametro da rota
-  public Medidas searchMedidaById(List<Medidas> medidas, Integer idMedida) {
-    for (Medidas med : medidas) {
-      if (med.getId().equals(idMedida)) {
-        return med;
-      }
-    }
-    return null;
+  // D - Medidas
+  public String deleteMedida(String idIlha, Integer idMedida) {
+    Ilha ilha = ilhaRepository.findById(idIlha).orElseThrow();
+
+    Medidas medidaDelete = ilha.getMedidas().stream()
+    .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
+
+    ilha.getMedidas().remove(medidaDelete);
+    ilhaRepository.save(ilha);
+
+    return "Medida removida com sucesso";
   }
 
 }

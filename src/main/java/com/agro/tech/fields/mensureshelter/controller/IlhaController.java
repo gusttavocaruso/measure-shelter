@@ -3,6 +3,7 @@ package com.agro.tech.fields.mensureshelter.controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -80,6 +81,13 @@ public class IlhaController {
       @PathVariable Integer idMedida,
       @RequestBody Medidas medida) {
     return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medida));
+  }
+
+  @DeleteMapping("/{idIlha}/medidas/remover/{idMedida}")
+  public ResponseEntity<String> removerIlha(
+      @PathVariable String idIlha,
+      @PathVariable Integer idMedida) {
+    return ResponseEntity.ok(ilhaService.deleteMedida(idIlha, idMedida));
   }
 
 }
