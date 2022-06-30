@@ -1,14 +1,19 @@
 package com.agro.tech.fields.mensureshelter.model;
 
+import javax.annotation.ManagedBean;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
+@ManagedBean
 public class Medidas {
 
   private Integer id;
   private String descricao;
   private String valor;
   private String unidadeDeMedida;
+
+  public Medidas() {}
 
   public Medidas(String descricao, String valor, String unidadeDeMedida) {
     this.descricao = descricao;

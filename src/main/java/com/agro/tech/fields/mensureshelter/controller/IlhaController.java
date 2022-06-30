@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agro.tech.fields.mensureshelter.dto.IlhaDto;
+import com.agro.tech.fields.mensureshelter.dto.MedidasDto;
 import com.agro.tech.fields.mensureshelter.model.Ilha;
 import com.agro.tech.fields.mensureshelter.model.Medidas;
 import com.agro.tech.fields.mensureshelter.service.IlhaService;
@@ -46,8 +47,8 @@ public class IlhaController {
   @PutMapping("/atualizar/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Ilha> updateIlha(@PathVariable String id, @RequestBody Ilha ilha) {
-    return ResponseEntity.ok(ilhaService.updateIlha(id, ilha));
+  public ResponseEntity<Ilha> updateIlha(@PathVariable String id, @RequestBody IlhaDto ilhaDto) {
+    return ResponseEntity.ok(ilhaService.updateIlha(id, ilhaDto));
   }
 
   @DeleteMapping("/remover/{id}")
@@ -61,8 +62,8 @@ public class IlhaController {
   @Consumes(MediaType.APPLICATION_JSON)
   public ResponseEntity<Ilha> adicionarMedidas(
       @PathVariable String id,
-      @RequestBody Medidas medidas) {
-    return ResponseEntity.ok(ilhaService.adicionarMedidas(id, medidas));
+      @RequestBody MedidasDto medidasDto) {
+    return ResponseEntity.ok(ilhaService.adicionarMedidas(id, medidasDto));
   }
 
   @GetMapping("/{id}/medidas")
@@ -78,8 +79,8 @@ public class IlhaController {
   public ResponseEntity<Medidas> updateMedida(
       @PathVariable String idIlha,
       @PathVariable Integer idMedida,
-      @RequestBody Medidas medida) {
-    return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medida));
+      @RequestBody MedidasDto medidasDto) {
+    return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medidasDto));
   }
 
   @DeleteMapping("/{idIlha}/medidas/remover/{idMedida}")

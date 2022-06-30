@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agro.tech.fields.mensureshelter.dto.IlhaDto;
+import com.agro.tech.fields.mensureshelter.dto.MedidasDto;
 import com.agro.tech.fields.mensureshelter.model.Ilha;
 import com.agro.tech.fields.mensureshelter.model.Medidas;
 import com.agro.tech.fields.mensureshelter.repository.IlhaRepository;
@@ -18,6 +19,9 @@ public class IlhaService {
 
   @Autowired
   Ilha ilha;
+
+  @Autowired
+  Medidas medidas;
 
   // C
   public Ilha criarIlha(IlhaDto ilhaDto) {
@@ -33,11 +37,11 @@ public class IlhaService {
   }
 
   // U
-  public Ilha updateIlha(String id, Ilha ilha) {
+  public Ilha updateIlha(String id, IlhaDto ilhaDto) {
     Ilha ilhaUpdate = ilhaRepository.findById(id).orElseThrow();
 
-    ilhaUpdate.setNome(ilha.getNome());
-    ilhaUpdate.setStatus(ilha.getStatus());
+    ilhaUpdate.setNome(ilhaDto.getNome());
+    ilhaUpdate.setStatus(ilhaDto.getStatus());
 
     return ilhaRepository.save(ilhaUpdate);
   }
@@ -49,11 +53,13 @@ public class IlhaService {
   }
 
   // C - Medidas
-  public Ilha adicionarMedidas(String id, Medidas medidas) {
+  public Ilha adicionarMedidas(String id, MedidasDto medidasDto) {
     Ilha ilhaById = ilhaRepository.findById(id).orElseThrow();
 
-    Integer idMedidas = ilhaById.getMedidas().size() + 1;
-    medidas.setId(idMedidas);
+    medidas.setId(ilhaById.getMedidas().size() + 1);
+    medidas.setDescricao(medidasDto.descricao);
+    medidas.setValor(medidasDto.valor);
+    medidas.setUnidadeDeMedida(medidasDto.unidadeDeMedida);
 
     ilhaById.adicionarMedida(medidas);
     return ilhaRepository.save(ilhaById);
@@ -66,15 +72,15 @@ public class IlhaService {
   }
 
   // U - Medidas
-  public Medidas updateMedida(String idIlha, Integer idMedida, Medidas medida) {
+  public Medidas updateMedida(String idIlha, Integer idMedida, MedidasDto medidasDto) {
     Ilha ilhaById = ilhaRepository.findById(idIlha).orElseThrow();
 
     Medidas medidaUpdate = ilhaById.getMedidas().stream()
       .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
 
-    medidaUpdate.setDescricao(medida.getDescricao());
-    medidaUpdate.setValor(medida.getValor());
-    medidaUpdate.setUnidadeDeMedida(medida.getUnidadeDeMedida());
+    medidaUpdate.setDescricao(medidasDto.descricao);
+    medidaUpdate.setValor(medidasDto.valor);
+    medidaUpdate.setUnidadeDeMedida(medidasDto.unidadeDeMedida);
 
     ilhaRepository.save(ilhaById);
     return medidaUpdate;
