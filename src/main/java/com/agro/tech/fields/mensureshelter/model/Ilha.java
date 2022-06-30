@@ -3,10 +3,13 @@ package com.agro.tech.fields.mensureshelter.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
+@ManagedBean
 public class Ilha {
 
   @Id
@@ -15,6 +18,10 @@ public class Ilha {
   private String nome;
   private String status;
   private List<Medidas> medidas;
+
+  public Ilha() {
+    this.medidas = new ArrayList<>();
+  }
 
   public Ilha(String nome, String status) {
     this.nome = nome;

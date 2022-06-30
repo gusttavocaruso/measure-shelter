@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agro.tech.fields.mensureshelter.dto.IlhaDto;
 import com.agro.tech.fields.mensureshelter.model.Ilha;
 import com.agro.tech.fields.mensureshelter.model.Medidas;
 import com.agro.tech.fields.mensureshelter.repository.IlhaRepository;
@@ -15,8 +16,14 @@ public class IlhaService {
   @Autowired
   IlhaRepository ilhaRepository;
 
+  @Autowired
+  Ilha ilha;
+
   // C
-  public Ilha criarIlha(Ilha ilha) {
+  public Ilha criarIlha(IlhaDto ilhaDto) {
+    ilha.setNome(ilhaDto.getNome());
+    ilha.setStatus(ilhaDto.getStatus());
+
     return ilhaRepository.save(ilha);
   }
 
@@ -43,45 +50,45 @@ public class IlhaService {
 
   // C - Medidas
   public Ilha adicionarMedidas(String id, Medidas medidas) {
-    Ilha ilha = ilhaRepository.findById(id).orElseThrow();
+    Ilha ilhaById = ilhaRepository.findById(id).orElseThrow();
 
-    Integer idMedidas = ilha.getMedidas().size() + 1;
+    Integer idMedidas = ilhaById.getMedidas().size() + 1;
     medidas.setId(idMedidas);
 
-    ilha.adicionarMedida(medidas);
-    return ilhaRepository.save(ilha);
+    ilhaById.adicionarMedida(medidas);
+    return ilhaRepository.save(ilhaById);
   }
 
   // R - Medidas
   public List<Medidas> searchMedidas(String id) {
-    Ilha ilha = ilhaRepository.findById(id).orElseThrow();
-    return ilha.getMedidas();
+    Ilha ilhaById = ilhaRepository.findById(id).orElseThrow();
+    return ilhaById.getMedidas();
   }
 
   // U - Medidas
   public Medidas updateMedida(String idIlha, Integer idMedida, Medidas medida) {
-    Ilha ilha = ilhaRepository.findById(idIlha).orElseThrow();
+    Ilha ilhaById = ilhaRepository.findById(idIlha).orElseThrow();
 
-    Medidas medidaUpdate = ilha.getMedidas().stream()
+    Medidas medidaUpdate = ilhaById.getMedidas().stream()
       .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
 
     medidaUpdate.setDescricao(medida.getDescricao());
     medidaUpdate.setValor(medida.getValor());
     medidaUpdate.setUnidadeDeMedida(medida.getUnidadeDeMedida());
 
-    ilhaRepository.save(ilha);
+    ilhaRepository.save(ilhaById);
     return medidaUpdate;
   }
 
   // D - Medidas
   public String deleteMedida(String idIlha, Integer idMedida) {
-    Ilha ilha = ilhaRepository.findById(idIlha).orElseThrow();
+    Ilha ilhaById = ilhaRepository.findById(idIlha).orElseThrow();
 
-    Medidas medidaDelete = ilha.getMedidas().stream()
+    Medidas medidaDelete = ilhaById.getMedidas().stream()
     .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
 
-    ilha.getMedidas().remove(medidaDelete);
-    ilhaRepository.save(ilha);
+    ilhaById.getMedidas().remove(medidaDelete);
+    ilhaRepository.save(ilhaById);
 
     return "Medida removida com sucesso";
   }
