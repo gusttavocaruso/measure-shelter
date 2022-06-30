@@ -14,39 +14,34 @@ import com.agro.tech.fields.mensureshelter.repository.IlhaRepository;
 @Service
 public class IlhaService {
 
-  @Autowired
-  IlhaRepository ilhaRepository;
+  @Autowired Ilha ilha;
+  @Autowired Medidas medidas;
+  @Autowired IlhaRepository ilhaRepository;
 
-  @Autowired
-  Ilha ilha;
-
-  @Autowired
-  Medidas medidas;
-
-  // C
+  // C - Ilha
   public Ilha criarIlha(IlhaDto ilhaDto) {
-    ilha.setNome(ilhaDto.getNome());
-    ilha.setStatus(ilhaDto.getStatus());
+    ilha.setNome(ilhaDto.nome);
+    ilha.setStatus(ilhaDto.status);
 
     return ilhaRepository.save(ilha);
   }
 
-  // R
+  // R - Ilha
   public List<Ilha> searchIlhas() {
     return ilhaRepository.findAll();
   }
 
-  // U
+  // U - Ilha
   public Ilha updateIlha(String id, IlhaDto ilhaDto) {
     Ilha ilhaUpdate = ilhaRepository.findById(id).orElseThrow();
 
-    ilhaUpdate.setNome(ilhaDto.getNome());
-    ilhaUpdate.setStatus(ilhaDto.getStatus());
+    ilhaUpdate.setNome(ilhaDto.nome);
+    ilhaUpdate.setStatus(ilhaDto.status);
 
     return ilhaRepository.save(ilhaUpdate);
   }
 
-  // D
+  // D - Ilha
   public String deleteIlha(String id) {
     ilhaRepository.deleteById(id);
     return "Ilha removida com sucesso";

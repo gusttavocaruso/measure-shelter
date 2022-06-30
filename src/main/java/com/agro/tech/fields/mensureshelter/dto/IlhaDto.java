@@ -6,9 +6,9 @@ import com.agro.tech.fields.mensureshelter.model.Medidas;
 
 public class IlhaDto {
 
-  private String nome;
-  private String status;
-  private List<Medidas> medidas;
+  public String nome;
+  public String status;
+  public List<Medidas> medidas;
 
   public String getNome() {
     return nome;

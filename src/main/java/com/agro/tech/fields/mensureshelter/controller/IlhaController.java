@@ -30,6 +30,7 @@ public class IlhaController {
   @Autowired
   IlhaService ilhaService;
 
+  // C - Ilha
   @PostMapping("/criar")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -37,6 +38,7 @@ public class IlhaController {
     return ResponseEntity.ok(ilhaService.criarIlha(ilhaDto));
   }
 
+  // R - Ilha
   @GetMapping
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -44,6 +46,7 @@ public class IlhaController {
     return ResponseEntity.ok(ilhaService.searchIlhas());
   }
 
+  // U - Ilha
   @PutMapping("/atualizar/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -51,12 +54,13 @@ public class IlhaController {
     return ResponseEntity.ok(ilhaService.updateIlha(id, ilhaDto));
   }
 
+  // D - Ilha
   @DeleteMapping("/remover/{id}")
   public ResponseEntity<String> removerIlha(@PathVariable String id) {
     return ResponseEntity.ok(ilhaService.deleteIlha(id));
   }
 
-  // Criar medidas por ilha
+  // C - Medidas
   @PostMapping("/{id}/medidas/adicionar")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -66,6 +70,7 @@ public class IlhaController {
     return ResponseEntity.ok(ilhaService.adicionarMedidas(id, medidasDto));
   }
 
+  // R - Medidas
   @GetMapping("/{id}/medidas")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -73,6 +78,7 @@ public class IlhaController {
     return ResponseEntity.ok(ilhaService.searchMedidas(id));
   }
 
+  // U - Medidas
   @PutMapping("/{idIlha}/medidas/atualizar/{idMedida}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -83,6 +89,7 @@ public class IlhaController {
     return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medidasDto));
   }
 
+  // D - Medidas
   @DeleteMapping("/{idIlha}/medidas/remover/{idMedida}")
   public ResponseEntity<String> removerIlha(
       @PathVariable String idIlha,
