@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agro.tech.fields.mensureshelter.model.Ilha;
+import com.agro.tech.fields.mensureshelter.model.Medidas;
 import com.agro.tech.fields.mensureshelter.service.IlhaService;
 
 @RestController
@@ -52,6 +53,33 @@ public class IlhaController {
   @DeleteMapping("/remover/{id}")
   public ResponseEntity<String> removerIlha(@PathVariable String id) {
     return ResponseEntity.ok(ilhaService.deleteIlha(id));
+  }
+
+  // Criar medidas por ilha
+  @PostMapping("/{id}/medidas/adicionar")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  public ResponseEntity<Ilha> adicionarMedidas(
+      @PathVariable String id,
+      @RequestBody Medidas medidas) {
+    return ResponseEntity.ok(ilhaService.adicionarMedidas(id, medidas));
+  }
+
+  @GetMapping("/{id}/medidas")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  public ResponseEntity<List<Medidas>> searchMedidas(@PathVariable String id) {
+    return ResponseEntity.ok(ilhaService.searchMedidas(id));
+  }
+
+  @PutMapping("/{idIlha}/medidas/atualizar/{idMedida}")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  public ResponseEntity<Medidas> updateMedida(
+      @PathVariable String idIlha,
+      @PathVariable Integer idMedida,
+      @RequestBody Medidas medida) {
+    return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medida));
   }
 
 }

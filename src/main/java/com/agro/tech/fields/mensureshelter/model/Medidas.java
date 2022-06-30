@@ -1,7 +1,11 @@
 package com.agro.tech.fields.mensureshelter.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Medidas {
 
+  private Integer id;
   private String descricao;
   private String valor;
   private String unidadeDeMedida;
@@ -10,6 +14,14 @@ public class Medidas {
     this.descricao = descricao;
     this.valor = valor;
     this.unidadeDeMedida = unidadeDeMedida;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getDescricao() {
