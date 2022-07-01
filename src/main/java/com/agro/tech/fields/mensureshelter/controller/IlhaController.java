@@ -1,5 +1,6 @@
 package com.agro.tech.fields.mensureshelter.controller;
 
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -23,6 +24,8 @@ import com.agro.tech.fields.mensureshelter.model.Ilha;
 import com.agro.tech.fields.mensureshelter.model.Medidas;
 import com.agro.tech.fields.mensureshelter.service.IlhaService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/ilha")
 public class IlhaController {
@@ -34,7 +37,8 @@ public class IlhaController {
   @PostMapping("/criar")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Ilha> criarIlha(@RequestBody IlhaDto ilhaDto) {
+  public ResponseEntity<Ilha> criarIlha(
+      @RequestBody @Valid IlhaDto ilhaDto) {
     return ResponseEntity.ok(ilhaService.criarIlha(ilhaDto));
   }
 
