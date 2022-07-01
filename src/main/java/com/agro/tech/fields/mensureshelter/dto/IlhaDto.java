@@ -2,17 +2,16 @@ package com.agro.tech.fields.mensureshelter.dto;
 
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import com.agro.tech.fields.mensureshelter.model.Medidas;
 
 public class IlhaDto {
 
-  @NotNull
+  @NotEmpty
   public String nome;
 
-  @NotBlank
+  @NotEmpty
   public String status;
 
   public List<Medidas> medidas;

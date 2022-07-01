@@ -1,6 +1,5 @@
 package com.agro.tech.fields.mensureshelter.controller;
 
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -54,7 +53,9 @@ public class IlhaController {
   @PutMapping("/atualizar/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Ilha> updateIlha(@PathVariable String id, @RequestBody IlhaDto ilhaDto) {
+  public ResponseEntity<Ilha> updateIlha(
+      @PathVariable String id,
+      @RequestBody @Valid IlhaDto ilhaDto) {
     return ResponseEntity.ok(ilhaService.updateIlha(id, ilhaDto));
   }
 
@@ -70,7 +71,7 @@ public class IlhaController {
   @Consumes(MediaType.APPLICATION_JSON)
   public ResponseEntity<Ilha> adicionarMedidas(
       @PathVariable String id,
-      @RequestBody MedidasDto medidasDto) {
+      @RequestBody @Valid MedidasDto medidasDto) {
     return ResponseEntity.ok(ilhaService.adicionarMedidas(id, medidasDto));
   }
 
@@ -89,7 +90,7 @@ public class IlhaController {
   public ResponseEntity<Medidas> updateMedida(
       @PathVariable String idIlha,
       @PathVariable Integer idMedida,
-      @RequestBody MedidasDto medidasDto) {
+      @RequestBody @Valid MedidasDto medidasDto) {
     return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medidasDto));
   }
 
