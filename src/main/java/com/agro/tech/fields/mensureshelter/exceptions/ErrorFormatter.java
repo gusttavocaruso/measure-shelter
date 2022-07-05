@@ -1,11 +1,11 @@
 package com.agro.tech.fields.mensureshelter.exceptions;
 
-public class ErroDeFormularioDto {
+public class ErrorFormatter {
 
   private String campo;
   private String erro;
 
-  public ErroDeFormularioDto(String campo, String erro) {
+  public ErrorFormatter(String campo, String erro) {
     this.campo = campo;
     this.erro = erro;
   }

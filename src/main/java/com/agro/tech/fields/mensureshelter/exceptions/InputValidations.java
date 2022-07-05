@@ -14,29 +14,27 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ErroDeValidacaoHandler {
+public class InputValidations {
 
   @Autowired
   private MessageSource messageSource;
 
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public List<ErroDeFormularioDto> handle(MethodArgumentNotValidException exception) {
+  public List<ErrorFormatter> catchErrors(MethodArgumentNotValidException errors) {
 
-    List<ErroDeFormularioDto> dto = new ArrayList<>();
+    List<ErrorFormatter> errorList = new ArrayList<>();
+    List<FieldError> fieldErrors = errors.getBindingResult().getFieldErrors();
 
-    List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-
-    fieldErrors
-        .forEach(e -> { String message = messageSource
+    fieldErrors.forEach(e -> {
+      String message = messageSource
           .getMessage(e, LocaleContextHolder.getLocale());
 
-      ErroDeFormularioDto erro = new ErroDeFormularioDto(e.getField(), message);
-      dto.add(erro);
-
+      ErrorFormatter erro = new ErrorFormatter(e.getField(), message);
+      errorList.add(erro);
     });
 
-    return dto;
+    return errorList;
   }
 
 }
