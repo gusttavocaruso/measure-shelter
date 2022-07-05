@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class InputValidations {
+public class ArgumentNotValidHandler {
 
   @Autowired
   private MessageSource messageSource;
@@ -26,11 +26,11 @@ public class InputValidations {
     List<ErrorFormatter> errorList = new ArrayList<>();
     List<FieldError> fieldErrors = errors.getBindingResult().getFieldErrors();
 
-    fieldErrors.forEach(e -> {
+    fieldErrors.forEach(err -> {
       String message = messageSource
-          .getMessage(e, LocaleContextHolder.getLocale());
+          .getMessage(err, LocaleContextHolder.getLocale());
 
-      ErrorFormatter erro = new ErrorFormatter(e.getField(), message);
+      ErrorFormatter erro = new ErrorFormatter(err.getField(), message);
       errorList.add(erro);
     });
 

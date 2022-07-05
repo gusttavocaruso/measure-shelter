@@ -4,13 +4,13 @@ import javax.validation.constraints.NotEmpty;
 
 public class MedidasDto {
 
-  @NotEmpty
+  @NotEmpty(message = "Campo obrigatório. Não pode ficar vazio")
   public String descricao;
 
-  @NotEmpty
+  @NotEmpty(message = "Campo obrigatório. Não pode ficar vazio")
   public String valor;
 
-  @NotEmpty
+  @NotEmpty(message = "Campo obrigatório. Não pode ficar vazio")
   public String unidadeDeMedida;
 
 }

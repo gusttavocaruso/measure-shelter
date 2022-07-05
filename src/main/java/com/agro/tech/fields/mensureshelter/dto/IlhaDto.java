@@ -8,10 +8,10 @@ import com.agro.tech.fields.mensureshelter.model.Medidas;
 
 public class IlhaDto {
 
-  @NotEmpty
+  @NotEmpty(message = "Campo obrigatório. Não pode ficar vazio")
   public String nome;
 
-  @NotEmpty
+  @NotEmpty(message = "Campo obrigatório. Não pode ficar vazio")
   public String status;
 
   public List<Medidas> medidas;
