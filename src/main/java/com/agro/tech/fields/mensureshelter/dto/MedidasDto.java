@@ -14,4 +14,3 @@ public class MedidasDto {
   public String unidadeDeMedida;
 
 }
-

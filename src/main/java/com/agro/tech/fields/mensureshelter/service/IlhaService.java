@@ -16,18 +16,20 @@ import com.agro.tech.fields.mensureshelter.repository.IlhaRepository;
 @Service
 public class IlhaService {
 
-  @Autowired Ilha ilha;
-  @Autowired Medidas medidas;
-  @Autowired IlhaRepository ilhaRepository;
+  @Autowired
+  Ilha ilha;
+  @Autowired
+  Medidas medidas;
+  @Autowired
+  IlhaRepository ilhaRepository;
 
   // C - Ilha
   public Ilha criarIlha(IlhaDto ilhaDto) {
     List<Ilha> ilhas = ilhaRepository.findAll();
 
-    for(Ilha i : ilhas) {
+    for (Ilha i : ilhas) {
       if (i.getNome().equals(ilhaDto.nome)) {
-        throw new ExceptionBadRequest(
-          "Nome de ilha já usado. Escolha outro");
+        throw new ExceptionBadRequest("Nome de ilha já usado. Escolha outro");
       }
     }
 
@@ -56,8 +58,7 @@ public class IlhaService {
   // D - Ilha
   public String deleteIlha(String id) {
     Ilha ilhaDelete = ilhaRepository.findById(id)
-        .orElseThrow(() -> new ExceptionNotFound(
-          "Não é possível remover. Ilha não encontrada."));
+        .orElseThrow(() -> new ExceptionNotFound("Não é possível remover. Ilha não encontrada."));
 
     ilhaRepository.deleteById(ilhaDelete.getId());
     return "Ilha removida com sucesso";
@@ -68,16 +69,15 @@ public class IlhaService {
     Ilha ilhaById = ilhaRepository.findById(id)
         .orElseThrow(() -> new ExceptionNotFound("Ilha não encontrada."));
 
-    for(Medidas meds : ilhaById.getMedidas()) {
+    for (Medidas meds : ilhaById.getMedidas()) {
       if (meds.getDescricao().equals(medidasDto.descricao)) {
-        throw new ExceptionBadRequest(
-          "Medida já existe para essa ilha. Gentileza atualize-a");
+        throw new ExceptionBadRequest("Medida já existe para essa ilha. Gentileza atualize-a");
       }
     }
 
     if (ilhaById.getStatus().equals("Inoperante")) {
       throw new ExceptionBadRequest(
-        "Não é possível adicionar novas medidas à esta Ilha. Ilha inoperante");
+          "Não é possível adicionar novas medidas à esta Ilha. Ilha inoperante");
     }
 
     medidas.setId(ilhaById.getMedidas().size() + 1);
@@ -103,11 +103,11 @@ public class IlhaService {
 
     if (ilhaById.getStatus().equals("Inoperante")) {
       throw new ExceptionBadRequest(
-        "Não é possível adicionar novas medidas à esta Ilha. Ilha inoperante");
+          "Não é possível adicionar novas medidas à esta Ilha. Ilha inoperante");
     }
 
     Medidas medidaUpdate = ilhaById.getMedidas().stream()
-      .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
+        .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
 
     medidaUpdate.setDescricao(medidasDto.descricao);
     medidaUpdate.setValor(medidasDto.valor);
@@ -123,7 +123,7 @@ public class IlhaService {
         .orElseThrow(() -> new ExceptionNotFound("Ilha não encontrada."));
 
     Medidas medidaDelete = ilhaById.getMedidas().stream()
-    .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
+        .filter((med) -> med.getId().equals(idMedida)).findFirst().get();
 
     ilhaById.getMedidas().remove(medidaDelete);
     ilhaRepository.save(ilhaById);

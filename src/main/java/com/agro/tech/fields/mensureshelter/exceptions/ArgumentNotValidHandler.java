@@ -27,8 +27,7 @@ public class ArgumentNotValidHandler {
     List<FieldError> fieldErrors = errors.getBindingResult().getFieldErrors();
 
     fieldErrors.forEach(err -> {
-      String message = messageSource
-          .getMessage(err, LocaleContextHolder.getLocale());
+      String message = messageSource.getMessage(err, LocaleContextHolder.getLocale());
 
       ErrorFormatter erro = new ErrorFormatter(err.getField(), message);
       errorList.add(erro);
