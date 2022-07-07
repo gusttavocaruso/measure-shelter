@@ -95,43 +95,83 @@ import static org.hamcrest.Matchers.equalTo;
 @SpringBootTest(classes = Ilha.class)
 @EnableMongoRepositories(basePackageClasses = IlhaRepository.class)
 public class IlhaControllerTest {
-    @Autowired
-    private MongodExecutable mongodExecutable;
 
-    @SpyBean
-    private IlhaRepository ilhaRepo;
+  @Autowired
+  private MongodExecutable mongodExecutable;
 
-    @BeforeEach
-    public void tearUp() throws IOException {
-        mongodExecutable.start();
-    }
+  @SpyBean
+  private IlhaRepository ilhaRepo;
 
-    @AfterEach
-    public void tearDown() {
-        mongodExecutable.stop();
-    }
+  @BeforeEach
+  public void tearUp() throws IOException {
+      mongodExecutable.start();
+  }
 
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Teste de Persistir Pessoas")
-    void testSavePessoa() {
-        var novaIlha = new Ilha("teste nome", "teste status");
-        var test = ilhaRepo.save(novaIlha);
-        assertThat(test.getNome(), equalTo("teste nome"));
-    }
+  @AfterEach
+  public void tearDown() {
+      mongodExecutable.stop();
+  }
 
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Teste de Persistir Pessoas 2")
-    void testSavePessoa2() {
+  @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+  @DisplayName("Teste de Persistir Ilhas")
+  void testSaveIlha() {
 
-        var novaIlha = new Ilha("teste nome", "teste status");
-        var novaIlha2 = new Ilha("teste nome", "teste status");
-        ilhaRepo.save(novaIlha);
-        ilhaRepo.save(novaIlha2);
-        var tamanho = ilhaRepo.findAll().size();
-        assertThat(tamanho, equalTo(2));
-    }
+    var novaIlha = new Ilha("teste nome", "teste status");
+    var test = ilhaRepo.save(novaIlha);
+
+    assertThat(test.getNome(), equalTo("teste nome"));
+
+  }
+
+  @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+  @DisplayName("Teste de Persistir Lista Ilhas")
+  void testListarIlhas() {
+
+    var novaIlha = new Ilha("teste nome", "teste status");
+    var novaIlha2 = new Ilha("teste nome", "teste status");
+
+    ilhaRepo.save(novaIlha);
+    ilhaRepo.save(novaIlha2);
+
+    var tamanho = ilhaRepo.findAll().size();
+
+    assertThat(tamanho, equalTo(2));
+  }
+
+  @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+  @DisplayName("Teste Deletar Ilha")
+  void testDeleteIlha() {
+
+    var novaIlha = new Ilha("teste nome", "teste status");
+    var novaIlha2 = new Ilha("teste nome", "teste status");
+
+    ilhaRepo.save(novaIlha);
+    ilhaRepo.save(novaIlha2);
+
+    ilhaRepo.delete(novaIlha);
+
+    var tamanho = ilhaRepo.findAll().size();
+
+    assertThat(tamanho, equalTo(1));
+  }
+
+  @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+  @DisplayName("Teste Editar Ilha")
+  void testEditarIlha() {
+
+    var novaIlha = new Ilha("teste nome", "teste status");
+    Ilha ilhaSalva = ilhaRepo.save(novaIlha);
+
+    ilhaSalva.setNome("novo nome");
+    ilhaRepo.save(ilhaSalva);
+    
+    var ilhaMod = ilhaRepo.findById(ilhaSalva.getId()).orElseThrow();
+
+    assertThat(ilhaMod.getNome(), equalTo("novo nome"));
+  }
 
 }
-

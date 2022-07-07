@@ -24,7 +24,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.io.IOException;
 
-
 @TestConfiguration
 public class MongoConfig {
     private static final String CONNECTION_STRING = "mongodb://%s:%d";
@@ -34,12 +33,10 @@ public class MongoConfig {
     @Value("${spring.data.mongodb.port:27017}")
     int port;
 
-
     @Bean
     public MongoTemplate mongoTemplate() throws IOException {
-        final MongoTemplate mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
-        return mongoTemplate;
-
+      final MongoTemplate mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION_STRING, ip, port)), "test");
+      return mongoTemplate;
     }
 
     @Bean
