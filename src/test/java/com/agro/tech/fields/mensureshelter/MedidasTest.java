@@ -54,14 +54,13 @@ public class MedidasTest {
 
     var novaIlha = new Ilha("teste nome", "teste status");
     var ilhaSalva = ilhaRepo.save(novaIlha);
-
     Ilha ilhaEncontrada = ilhaRepo.findById(ilhaSalva.getId()).orElseThrow();
-
 
     MedidasDto dto = new MedidasDto();
     dto.descricao = "temperatura";
     dto.valor = "30";
     dto.unidadeDeMedida = "graus";
+
     Medidas medidas = new Medidas();
     medidas.setId(ilhaEncontrada.getMedidas().size() + 1);
     medidas.setDescricao(dto.descricao);
@@ -72,8 +71,9 @@ public class MedidasTest {
     
     Medidas medidaSalva = ilhaEncontrada.getMedidas().get(0);
 
+    assertThat(medidaSalva.getDescricao(), equalTo("temperatura"));
     assertThat(medidaSalva.getValor(), equalTo("30"));
-
+    assertThat(medidaSalva.getUnidadeDeMedida(), equalTo("graus"));
   }
 
   @Test
@@ -83,14 +83,13 @@ public class MedidasTest {
 
     var novaIlha = new Ilha("teste nome", "teste status");
     var ilhaSalva = ilhaRepo.save(novaIlha);
-
     Ilha ilhaEncontrada = ilhaRepo.findById(ilhaSalva.getId()).orElseThrow();
-
 
     MedidasDto dto = new MedidasDto();
     dto.descricao = "temperatura";
     dto.valor = "30";
     dto.unidadeDeMedida = "graus";
+
     Medidas medidas = new Medidas();
     medidas.setId(ilhaEncontrada.getMedidas().size() + 1);
     medidas.setDescricao(dto.descricao);
@@ -98,13 +97,11 @@ public class MedidasTest {
     medidas.setUnidadeDeMedida(dto.unidadeDeMedida);
 
     ilhaEncontrada.adicionarMedida(medidas);
-
     ilhaEncontrada.adicionarMedida(medidas);
     
     int tamanho = ilhaEncontrada.getMedidas().size();
 
     assertThat(tamanho, equalTo(2));
   }
-
 
 }
