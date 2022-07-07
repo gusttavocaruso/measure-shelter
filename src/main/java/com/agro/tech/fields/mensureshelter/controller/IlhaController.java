@@ -36,8 +36,7 @@ public class IlhaController {
   @PostMapping("/criar")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Ilha> criarIlha(
-      @RequestBody @Valid IlhaDto ilhaDto) {
+  public ResponseEntity<Ilha> criarIlha(@RequestBody @Valid IlhaDto ilhaDto) {
     return ResponseEntity.ok(ilhaService.criarIlha(ilhaDto));
   }
 
@@ -53,8 +52,7 @@ public class IlhaController {
   @PutMapping("/atualizar/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Ilha> updateIlha(
-      @PathVariable String id,
+  public ResponseEntity<Ilha> updateIlha(@PathVariable String id,
       @RequestBody @Valid IlhaDto ilhaDto) {
     return ResponseEntity.ok(ilhaService.updateIlha(id, ilhaDto));
   }
@@ -69,8 +67,7 @@ public class IlhaController {
   @PostMapping("/{id}/medidas/adicionar")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Ilha> adicionarMedidas(
-      @PathVariable String id,
+  public ResponseEntity<Ilha> adicionarMedidas(@PathVariable String id,
       @RequestBody @Valid MedidasDto medidasDto) {
     return ResponseEntity.ok(ilhaService.adicionarMedidas(id, medidasDto));
   }
@@ -87,17 +84,14 @@ public class IlhaController {
   @PutMapping("/{idIlha}/medidas/atualizar/{idMedida}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public ResponseEntity<Medidas> updateMedida(
-      @PathVariable String idIlha,
-      @PathVariable Integer idMedida,
-      @RequestBody @Valid MedidasDto medidasDto) {
+  public ResponseEntity<Medidas> updateMedida(@PathVariable String idIlha,
+      @PathVariable Integer idMedida, @RequestBody @Valid MedidasDto medidasDto) {
     return ResponseEntity.ok(ilhaService.updateMedida(idIlha, idMedida, medidasDto));
   }
 
   // D - Medidas
   @DeleteMapping("/{idIlha}/medidas/remover/{idMedida}")
-  public ResponseEntity<String> removerIlha(
-      @PathVariable String idIlha,
+  public ResponseEntity<String> removerIlha(@PathVariable String idIlha,
       @PathVariable Integer idMedida) {
     return ResponseEntity.ok(ilhaService.deleteMedida(idIlha, idMedida));
   }
