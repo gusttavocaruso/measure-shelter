@@ -1,6 +1,6 @@
 <div align="center">
 
-# Mensure Shelter
+# Measure Shelter
 
 <img src="https://agropos.com.br/wp-content/uploads/2021/04/Sensores-de-Umidade.jpg" width="200px">
 
@@ -27,7 +27,7 @@ Como a arquitetura apresentada é inicial, sua equipe tem a liberdade para event
 
 ## Informações para consumo da API
 
-Para testar as rotas você pode clonar o projeto para sua maquina, instalar as dependencias via `mvn install` e rodar a API com o comando `mvn spring-boot:run`, assim ela ficará disponível na porta `:8080`
+Para testar as rotas você pode utilizar a API hospedada no <a href="https://mensure-shelter-group-3.herokuapp.com/ilha" target="_blank">**Heroku**</a> ou pode clonar o projeto para sua maquina, instalar as dependencias via `mvn install` e rodar a API com o comando `mvn spring-boot:run`, assim ela ficará disponível na porta `:8080`
 
 As rotas disponíveis são:
 
